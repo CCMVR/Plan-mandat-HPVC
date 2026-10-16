@@ -1,0 +1,24 @@
+Je suis DGS et Contrôleur de gestion de la collectivité "Haut Pays du Velay Communauté" (Haute-Loire - 43, 8 communes membres, 9 240 habitants, 45 agents). Mes nouveaux élus ont besoin d'un outil d'aide à la décision rigoureux pour bâtir leur plan de mandat 2026-2033 (7 exercices budgétaires).
+
+Attention : Les données réelles sont DÉJÀ scrapées et disponibles localement dans le dossier de travail (voir `data_scraped/`, CFU 2024, Bilan de fin de mandat mars 2026, Organigramme 2026, BP 2024). Pas besoin de re-scraper depuis zéro, utilise directement ces fichiers.
+
+Voici la commande structurée en étapes :
+
+Étape 0 : Cadrage et levée des flous éventuels.
+Étape 1 : Fichier .md fixant la philosophie et la méthodologie complète intégrant la double exigence : vision politique des élus et rigueur de contrôle de gestion (M57).
+Étape 2 : Synthèse d'analyse financière et organisationnelle à 360° basée sur les données du CFU 2024 réel (dépenses réelles 5,73 M€, recettes réelles 7,55 M€, CAF brute 1,82 M€, dette budget principal = 0 €, 45 agents, masse salariale 2,06 M€, bilan 2020-2026 à 86% avec développement durable en retard à 68%).
+Étape 3 : Diagnostic complet et constitution d'une matrice exhaustive d'actions (>300 actions réelles et réalistes). OBLIGATOIREMENT pour chaque action :
+  - Le "Pourquoi" : Cadre réglementaire qui l'impose (Loi AGEC, ZAN, GEMAPI, Décret tertiaire, conformité STEP...) OU Objectif stratégique chiffré visé.
+  - Le double impact budgétaire : Investissement (CAPEX + % subvention) ET Fonctionnement récurrent annuel induit (OPEX fluides, maintenance, impact RH).
+  - Un volet explicite de "Mesures d'économies budgétaires et suppressions" : lignes supprimées, contrats renégociés, mutualisations et rationalisations pour dégager des marges.
+Étape 4 : Développement d'une application web interactive autonome (index.html + JS/CSS sans serveur Node obligatoire, sans blocage CORS) avec :
+  1. Frise chronologique très visuelle 2026-2033 (Gantt interactif) : ajout, suppression, décalage d'années (+1 an / -1 an) avec recalcul instantané.
+  2. Simulation de l'équilibre budgétaire global : non seulement la PPI d'investissement, mais la prospective complète de la section de fonctionnement (011, 012, 65 vs 70, 73, 74) avec l'évolution de la CAF brute et nette année par année jusqu'en 2033.
+  3. Baromètre de Santé Financière (Aujourd'hui vs Atterrissage 2033) selon les 5 ratios pivots de la DGCL/CRC : Capacité de désendettement, Taux d'épargne brute, Taux d'épargne nette, Rigidité des charges structurelles [(012+16)/RRF], et Effort fiscal.
+  4. 4 Prismes d'accès instantanés : Élus (arbitrages P0 à P4 et équilibre des 8 communes), Habitants (services concrets du quotidien et garantie fiscale), Contrôle de Gestion / DAF (tableaux de bord M57, ratios, autofinancement), et RH (charge des 45 agents, GPEC 8 retraites).
+  5. Deux autres versions complètes codées avec une température créative plus haute (V2 Transition Éco-Circulaire / V3 Campus Rural & Attractivité).
+Étape 6 : Sas d'évaluation impitoyable par 4 IA expertes spécialisées : Designer UI/UX (avec capture d'écran), Élu communautaire, Habitant, Contrôleur de gestion / DAF. Grille sur 100 points, -1 pt par anomalie/flou, seuil d'admissibilité >= 98/100, max 10 boucles avec fiche d'audit détaillée.
+Étape 7 : Concertation et fusion des meilleures propositions dans une Application Finale Unifiée d'Excellence repassant au moulin d'évaluation.
+Étape 8 : Dossier de livraison et kit d'animation de séminaire pour le DGS.
+
+Si c'est OK pour toi, démarre l'Étape 0.

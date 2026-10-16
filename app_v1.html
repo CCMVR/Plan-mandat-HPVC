@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de Mandat 2026-2033 | Haut Pays du Velay Communauté - V1 Rigueur & Réalisme</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="data_actions.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .timeline-col { min-width: 130px; }
+    .badge-p0 { background: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+    .badge-p1 { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .badge-p2 { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+    .badge-p3 { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .badge-p4 { background: #f3e8ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+    .custom-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Header / Navigation Bar -->
+  <header class="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center font-bold text-sky-300 text-xl shadow-inner">
+          HPV
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold tracking-tight">Haut Pays du Velay Communauté</h1>
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">V1 - Rigueur & PPI 2026-2033</span>
+          </div>
+          <p class="text-xs text-slate-300">Outil de Pilotage & Plan de Mandat pour le DGS et le Conseil Communautaire</p>
+        </div>
+      </div>
+
+      <!-- Quick Ratios Pills -->
+      <div class="hidden lg:flex items-center gap-3 text-xs">
+        <div class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex flex-col items-center">
+          <span class="text-slate-400 text-[10px]">CAF BRUTE ANNUELLE</span>
+          <span class="font-bold text-emerald-400">1 821 208 €</span>
+        </div>
+        <div class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex flex-col items-center">
+          <span class="text-slate-400 text-[10px]">DETTE BUDGET PPAL</span>
+          <span class="font-bold text-sky-400">0 € (0.00 an)</span>
+        </div>
+        <div class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex flex-col items-center">
+          <span class="text-slate-400 text-[10px]">EFFECTIF RH</span>
+          <span class="font-bold text-amber-400">45 Agents (2.06 M€)</span>
+        </div>
+        <div class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-lg flex flex-col items-center">
+          <span class="text-slate-400 text-[10px]">POPULATION (8 COMM.)</span>
+          <span class="font-bold text-white">9 240 hab.</span>
+        </div>
+      </div>
+
+      <!-- Version switcher links -->
+      <div class="flex items-center gap-2 text-xs">
+        <a href="index.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">Portail</a>
+        <a href="app_v2.html" class="px-2.5 py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-emerald-200 border border-emerald-700 transition">V2 Éco-Circulaire</a>
+        <a href="app_v3.html" class="px-2.5 py-1.5 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 text-indigo-200 border border-indigo-700 transition">V3 Campus Rural</a>
+      </div>
+    </div>
+
+    <!-- Perspective / Roles Subheader -->
+    <div class="bg-slate-800/90 border-t border-slate-700/60 px-4 py-2">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-1.5 font-medium text-slate-300">
+          <span>Prisme de lecture :</span>
+          <div class="flex bg-slate-900/90 p-1 rounded-xl border border-slate-700 gap-1">
+            <button onclick="setPerspective('elus')" id="btn-persp-elus" class="px-3 py-1 rounded-lg font-semibold transition bg-sky-600 text-white shadow-sm">
+              👔 Élus & Arbitrages
+            </button>
+            <button onclick="setPerspective('habitants')" id="btn-persp-habitants" class="px-3 py-1 rounded-lg font-medium text-slate-300 hover:text-white transition">
+              👥 Habitants & Territoire
+            </button>
+            <button onclick="setPerspective('finances')" id="btn-persp-finances" class="px-3 py-1 rounded-lg font-medium text-slate-300 hover:text-white transition">
+              💶 Finances & PPI
+            </button>
+            <button onclick="setPerspective('rh')" id="btn-persp-rh" class="px-3 py-1 rounded-lg font-medium text-slate-300 hover:text-white transition">
+              🧑‍💼 RH & Organisation
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="openAddModal()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-semibold text-white shadow transition flex items-center gap-1.5">
+            <span>➕</span> Ajouter une action
+          </button>
+          <button onclick="exportScenario()" class="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 font-medium text-slate-200 transition">
+            📥 Exporter
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Perspective Dynamic Banner Notice -->
+  <div id="perspective-banner" class="bg-sky-50 border-b border-sky-200 px-4 py-2 text-xs text-sky-900">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <p id="perspective-desc">
+        <strong>Vue Élus & Décideurs :</strong> Visualisez l'ensemble des 350 actions, arbitrez par priorité (P0 réglementaire à P4 innovante), planifiez leur mise en œuvre sur la frise 2026-2033 et équilibrez l'effort entre les 8 communes membres.
+      </p>
+      <span class="font-bold text-sky-700 ml-4 hidden sm:inline" id="action-count-display">350 actions chargées</span>
+    </div>
+  </div>
+
+  <!-- Main Content Layout -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full space-y-6">
+
+    <!-- KPI Dashboard Row (Dynamic with scenario) -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="text-xs text-slate-500 font-medium">Investissement Cumulé Retenu</div>
+        <div class="text-2xl font-extrabold text-slate-900 mt-1" id="kpi-total-inv">0 €</div>
+        <div class="text-xs text-emerald-600 mt-1 font-medium flex items-center gap-1" id="kpi-subvention-detail">
+          <span>Subventions : 0 € (0%)</span>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="text-xs text-slate-500 font-medium">Reste à Charge Net Intercommunal</div>
+        <div class="text-2xl font-extrabold text-sky-700 mt-1" id="kpi-net-charge">0 €</div>
+        <div class="text-xs text-slate-500 mt-1" id="kpi-net-annual">Moyenne annuelle : 0 €/an</div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="text-xs text-slate-500 font-medium">Impact Fonctionnement Récurrent</div>
+        <div class="text-2xl font-extrabold text-amber-600 mt-1" id="kpi-total-opex">0 €/an</div>
+        <div class="text-xs text-slate-500 mt-1">Maintenance & charges induites</div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="text-xs text-slate-500 font-medium">Soutenabilité du Mandat</div>
+        <div class="text-2xl font-extrabold text-emerald-600 mt-1" id="kpi-soutenabilite">Excellente</div>
+        <div class="text-xs text-slate-500 mt-1" id="kpi-desendettement-live">Dette budget ppal : 0 €</div>
+      </div>
+    </section>
+
+    <!-- Collapsible Diagnostic Section -->
+    <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <button onclick="toggleSection('diag-body')" class="w-full px-5 py-3.5 bg-slate-100 hover:bg-slate-200/80 flex items-center justify-between text-left font-bold text-sm text-slate-800 transition">
+        <span class="flex items-center gap-2">
+          <span>📊</span> Diagnostic Stratégique 360° du Haut Pays du Velay (Organisation, Budget CFU 2024, Bilan de Mandat)
+        </span>
+        <span id="diag-toggle-icon" class="text-slate-500 text-xs font-normal bg-white px-2 py-0.5 rounded border border-slate-300">Afficher le détail</span>
+      </button>
+
+      <div id="diag-body" class="hidden p-5 border-t border-slate-200 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Col 1: Organisation & RH -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+            <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+              <span class="p-1 rounded bg-sky-100 text-sky-800">🧑‍💼</span> 1. Organisation & RH (45 agents)
+            </h3>
+            <ul class="text-xs space-y-2 text-slate-600">
+              <li><strong>4 Pôles Opérationnels :</strong> Développement (Eco/Tourisme/PVD), DAF/Solidarités, Enfance-Jeunesse, Technique/Environnement.</li>
+              <li><strong>Masse salariale :</strong> 2 061 500 € (20.6% des dépenses réelles, ratio très efficient).</li>
+              <li><strong>Alerte GPEC :</strong> 8 départs en retraite attendus d'ici 2033. Nécessité d'anticiper les compétences eau, SIG, et ingénierie de projets.</li>
+            </ul>
+          </div>
+
+          <!-- Col 2: Budget & CFU 2024 -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+            <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+              <span class="p-1 rounded bg-emerald-100 text-emerald-800">💶</span> 2. Budget Réel & Ratios M57
+            </h3>
+            <ul class="text-xs space-y-2 text-slate-600">
+              <li><strong>Recettes de Fonctionnement :</strong> 7 554 944 € (56% fiscalité, 29% dotations).</li>
+              <li><strong>Dépenses de Fonctionnement :</strong> 5 733 735 € (hausse maîtrisée).</li>
+              <li><strong>Épargne Brute (CAF) :</strong> 1 821 208 €/an (taux d'épargne exceptionnel de 24.1%).</li>
+              <li><strong>Désendettement :</strong> Dette budget principal = 0 €. Capacité de désendettement consolidée = 2.38 ans.</li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Compétences & Bilan -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+            <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+              <span class="p-1 rounded bg-amber-100 text-amber-800">🎯</span> 3. Bilan 2020-2026 (Mars 2026)
+            </h3>
+            <ul class="text-xs space-y-2 text-slate-600">
+              <li><strong>Taux global d'avancement :</strong> 86% sur 171 actions initiales.</li>
+              <li><strong>Pôles au sommet :</strong> Finances (100%), Gouvernance (100%), Économie (91%), Santé/Social (90%).</li>
+              <li><strong>Point de vigilance :</strong> Développement Durable à 68% (transfert eau/STEP, déchets TGAP, énergie). C'est le grand chantier 2026-2033.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters and Search Toolbar -->
+    <section class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+        
+        <!-- Search bar -->
+        <div class="lg:col-span-1">
+          <label class="block text-slate-600 font-semibold mb-1">Recherche mot-clé</label>
+          <input type="text" id="filter-search" oninput="applyFilters()" placeholder="ZAE, crèche, voirie, eau..." class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500">
+        </div>
+
+        <!-- Filter Domain -->
+        <div>
+          <label class="block text-slate-600 font-semibold mb-1">Pôle / Domaine</label>
+          <select id="filter-domain" onchange="applyFilters()" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
+            <option value="ALL">Tous les pôles (8)</option>
+          </select>
+        </div>
+
+        <!-- Filter Priority -->
+        <div>
+          <label class="block text-slate-600 font-semibold mb-1">Niveau de Priorité</label>
+          <select id="filter-priority" onchange="applyFilters()" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
+            <option value="ALL">Toutes priorités</option>
+            <option value="P0 - Réglementaire">P0 - Réglementaire / Obligatoire</option>
+            <option value="P1 - Indispensable">P1 - Indispensable</option>
+            <option value="P2 - Nécessaire">P2 - Nécessaire</option>
+            <option value="P3 - Importante">P3 - Importante</option>
+            <option value="P4 - Optionnelle / Innovation">P4 - Optionnelle / Innovation</option>
+          </select>
+        </div>
+
+        <!-- Filter Status -->
+        <div>
+          <label class="block text-slate-600 font-semibold mb-1">Statut d'Avancement</label>
+          <select id="filter-status" onchange="applyFilters()" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
+            <option value="ALL">Tous statuts</option>
+            <option value="Menée (Historique)">Menée (Historique)</option>
+            <option value="En cours">En cours</option>
+            <option value="Déjà programmée">Déjà programmée</option>
+            <option value="Potentielle (Nouvelle)">Potentielle (Nouvelle 2026-2033)</option>
+          </select>
+        </div>
+
+        <!-- Filter Communes -->
+        <div>
+          <label class="block text-slate-600 font-semibold mb-1">Commune membre</label>
+          <select id="filter-commune" onchange="applyFilters()" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
+            <option value="ALL">Toutes les communes</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Timeline & Gantt Section 2026-2033 -->
+    <section class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <span>📅</span> Frise Chronologique Interactive du Mandat (2026 – 2033)
+          </h2>
+          <p class="text-xs text-slate-500">
+            Ajustez l'année de démarrage avec ◀️ et ▶️, allongez ou réduisez la durée, ou retirez des actions pour modéliser votre trajectoire budgétaire.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-medium">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> P0 Obligatoire
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-medium">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> P1 Indispensable
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-medium">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> P2 Nécessaire
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-medium">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> P3 Importante
+          </span>
+        </div>
+      </div>
+
+      <!-- Gantt / Timeline Matrix Container -->
+      <div class="overflow-x-auto custom-scroll border border-slate-200 rounded-xl bg-slate-50/50">
+        
+        <!-- Timeline Header Years -->
+        <div class="min-w-[1100px] grid grid-cols-12 bg-slate-100 border-b border-slate-200 font-bold text-xs text-slate-700 text-center py-2.5">
+          <div class="col-span-4 text-left px-4">Action programmée & Pôle</div>
+          <div class="col-span-1">2026</div>
+          <div class="col-span-1">2027</div>
+          <div class="col-span-1">2028</div>
+          <div class="col-span-1">2029</div>
+          <div class="col-span-1">2030</div>
+          <div class="col-span-1">2031</div>
+          <div class="col-span-1">2032</div>
+          <div class="col-span-1">2033</div>
+        </div>
+
+        <!-- Timeline Rows Container (populated dynamically) -->
+        <div id="timeline-rows-container" class="min-w-[1100px] divide-y divide-slate-200 max-h-[620px] overflow-y-auto">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Annual Budget Impact Footer Bar -->
+        <div class="min-w-[1100px] grid grid-cols-12 bg-slate-900 text-white font-semibold text-xs py-3 px-4 border-t-2 border-sky-500 items-center">
+          <div class="col-span-4 flex items-center justify-between pr-4">
+            <span class="font-bold text-sky-400">DÉPENSE PLURIANNUELLE PRÉVUE</span>
+            <span class="text-[11px] text-slate-400">Plafond annuel soutenable : ~3.5 M€</span>
+          </div>
+          <div class="col-span-1 text-center font-bold" id="yr-cost-2026">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="yr-cost-2027">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="yr-cost-2028">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="yr-cost-2029">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="yr-cost-2030">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="yr-cost-2031">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="yr-cost-2032">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="yr-cost-2033">0 €</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specific Perspective Tab Views (Displayed depending on perspective) -->
+    <section id="perspective-content-area" class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+      <!-- Injected by setPerspective() -->
+    </section>
+
+  </main>
+
+  <!-- Modal : Ajouter une Action -->
+  <div id="modal-add-action" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+          <span>➕</span> Ajouter une nouvelle action au Plan de Mandat
+        </h3>
+        <button onclick="closeAddModal()" class="text-slate-400 hover:text-slate-600 text-lg font-bold">&times;</button>
+      </div>
+
+      <form id="form-new-action" onsubmit="submitNewAction(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Intitulé de l'action *</label>
+          <input type="text" id="new-title" required placeholder="Ex: Réhabilitation énergétique de la salle omnisports..." class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Pôle / Domaine *</label>
+            <select id="new-domain" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white">
+              <!-- populated by js -->
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Commune concernée *</label>
+            <select id="new-commune" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white">
+              <option value="Toutes">Toutes les communes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Niveau de Priorité *</label>
+            <select id="new-priority" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white">
+              <option value="P0 - Réglementaire">P0 - Réglementaire / Obligatoire</option>
+              <option value="P1 - Indispensable" selected>P1 - Indispensable</option>
+              <option value="P2 - Nécessaire">P2 - Nécessaire</option>
+              <option value="P3 - Importante">P3 - Importante</option>
+              <option value="P4 - Optionnelle / Innovation">P4 - Optionnelle / Innovation</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Statut Initial *</label>
+            <select id="new-status" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white">
+              <option value="Potentielle (Nouvelle)" selected>Potentielle (Nouvelle)</option>
+              <option value="Déjà programmée">Déjà programmée</option>
+              <option value="En cours">En cours</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Coût Investissement (€)</label>
+            <input type="number" id="new-inv" value="150000" min="0" step="1000" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Subvention prévue (%)</label>
+            <input type="number" id="new-sub" value="50" min="0" max="80" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Coût Fonctionnement (€/an)</label>
+            <input type="number" id="new-opex" value="5000" step="500" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Année de démarrage</label>
+            <select id="new-year" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white">
+              <option value="2026">2026</option>
+              <option value="2027" selected>2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
+              <option value="2030">2030</option>
+              <option value="2031">2031</option>
+              <option value="2032">2032</option>
+              <option value="2033">2033</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Durée (mois)</label>
+            <input type="number" id="new-duration" value="12" min="1" max="84" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Impact RH</label>
+            <select id="new-etp" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white">
+              <option value="Faible (<0.2 ETP)">Faible (<0.2 ETP)</option>
+              <option value="Moyen (0.2-0.5 ETP)">Moyen (0.2-0.5 ETP)</option>
+              <option value="Fort (>0.5 ETP)">Fort (>0.5 ETP)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Description / Objectif</label>
+          <textarea id="new-desc" rows="2" placeholder="Précisez l'objectif concret et les bénéfices pour le territoire..." class="w-full px-3 py-2 rounded-lg border border-slate-300"></textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-3 border-t">
+          <button type="button" onclick="closeAddModal()" class="px-4 py-2 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold">Annuler</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold shadow">Enregistrer l'action</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-4 px-6 border-t border-slate-800 text-center">
+    Haut Pays du Velay Communauté &bull; Direction Générale des Services &bull; Plan de Mandat 2026-2033 &bull; Version 1 : Trajectoire Budgétaire Réaliste & M57
+  </footer>
+
+  <!-- Application Logic -->
+  <script>
+    // State management
+    let state = {
+      actions: [],
+      filtered: [],
+      perspective: 'elus',
+      filters: {
+        search: '',
+        domain: 'ALL',
+        priority: 'ALL',
+        status: 'ALL',
+        commune: 'ALL'
+      }
+    };
+
+    // Initialize application
+    window.addEventListener('DOMContentLoaded', () => {
+      // Clone master database from data_actions.js
+      state.actions = JSON.parse(JSON.stringify(ACTIONS_DATA));
+      initFiltersUI();
+      applyFilters();
+      setPerspective('elus');
+    });
+
+    function initFiltersUI() {
+      // Domains
+      const domSelect = document.getElementById('filter-domain');
+      const newDomSelect = document.getElementById('new-domain');
+      TERRITORY_CONFIG.poles.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = p;
+        domSelect.appendChild(opt);
+        
+        const opt2 = document.createElement('option');
+        opt2.value = p;
+        opt2.textContent = p;
+        newDomSelect.appendChild(opt2);
+      });
+
+      // Communes
+      const comSelect = document.getElementById('filter-commune');
+      const newComSelect = document.getElementById('new-commune');
+      TERRITORY_CONFIG.communes.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = c;
+        comSelect.appendChild(opt);
+
+        const opt2 = document.createElement('option');
+        opt2.value = c;
+        opt2.textContent = c;
+        newComSelect.appendChild(opt2);
+      });
+    }
+
+    function toggleSection(id) {
+      const el = document.getElementById(id);
+      const icon = document.getElementById('diag-toggle-icon');
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        icon.textContent = 'Masquer le détail';
+      } else {
+        el.classList.add('hidden');
+        icon.textContent = 'Afficher le détail';
+      }
+    }
+
+    function setPerspective(persp) {
+      state.perspective = persp;
+      
+      // Update buttons
+      ['elus', 'habitants', 'finances', 'rh'].forEach(p => {
+        const btn = document.getElementById(`btn-persp-${p}`);
+        if (p === persp) {
+          btn.className = 'px-3 py-1 rounded-lg font-semibold transition bg-sky-600 text-white shadow-sm';
+        } else {
+          btn.className = 'px-3 py-1 rounded-lg font-medium text-slate-300 hover:text-white transition';
+        }
+      });
+
+      const bannerDesc = document.getElementById('perspective-desc');
+      const container = document.getElementById('perspective-content-area');
+
+      if (persp === 'elus') {
+        bannerDesc.innerHTML = '<strong>Vue Élus & Gouvernance :</strong> Vision décisionnelle globale, arbitrages par priorité politique (P0 obligatoire à P4 innovation), répartition territoriale équilibrée entre les 8 communes membres et calendrier de mandat 2026-2033.';
+        renderElusPerspective(container);
+      } else if (persp === 'habitants') {
+        bannerDesc.innerHTML = '<strong>Vue Citoyens & Habitants :</strong> Compréhension claire et accessible de l\'action communautaire : à quoi sert mon impôt, quels projets améliorent ma commune et la qualité de vie au quotidien sans jargon administratif.';
+        renderHabitantsPerspective(container);
+      } else if (persp === 'finances') {
+        bannerDesc.innerHTML = '<strong>Vue Contrôle de Gestion & Finances (DAF) :</strong> Programmation Pluriannuelle des Investissements (PPI), prospective M57, impact direct sur l\'autofinancement (CAF nette) et garantie du maintien d\'une dette proche de zéro.';
+        renderFinancesPerspective(container);
+      } else if (persp === 'rh') {
+        bannerDesc.innerHTML = '<strong>Vue Ressources Humaines & Organisation :</strong> Analyse de la charge de travail des 45 agents, impact en ETP par projet, prévision des 8 départs en retraite et plan de formation des équipes communautaires.';
+        renderRhPerspective(container);
+      }
+    }
+
+    function renderElusPerspective(container) {
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+              <span>👔</span> Tableau de Bord d'Arbitrage des Élus Communautaires
+            </h3>
+            <span class="text-xs text-slate-500">Sélectionnez les projets à valider ou différer</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-slate-500 font-semibold">Projets Réglementaires (P0)</div>
+              <div class="text-xl font-bold text-red-600 mt-1">${state.actions.filter(a => a.priority.includes('P0')).length} actions</div>
+              <p class="text-[11px] text-slate-500 mt-1">Eau, assainissement, conformité légale obligatoire.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-slate-500 font-semibold">Projets Indispensables (P1)</div>
+              <div class="text-xl font-bold text-amber-600 mt-1">${state.actions.filter(a => a.priority.includes('P1')).length} actions</div>
+              <p class="text-[11px] text-slate-500 mt-1">Voirie, sécurité, entretien patrimoine crèches/piscine.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-slate-500 font-semibold">Projets Nécessaires (P2)</div>
+              <div class="text-xl font-bold text-blue-600 mt-1">${state.actions.filter(a => a.priority.includes('P2')).length} actions</div>
+              <p class="text-[11px] text-slate-500 mt-1">Efficience, modernisation thermique, attractivité ZAE.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-slate-500 font-semibold">Nouveaux Services (P3 & P4)</div>
+              <div class="text-xl font-bold text-emerald-600 mt-1">${state.actions.filter(a => a.priority.includes('P3') || a.priority.includes('P4')).length} actions</div>
+              <p class="text-[11px] text-slate-500 mt-1">Vélo, tourisme plein air, événements et innovations.</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHabitantsPerspective(container) {
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="border-b pb-3">
+            <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+              <span>👥</span> L'Intercommunalité au Cœur de Votre Vie Quotidienne
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">Découvrez ce que les projets du mandat 2026-2033 apportent concrètement à votre commune et à vos enfants.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 space-y-2">
+              <div class="font-bold text-emerald-900 flex items-center gap-1.5">
+                <span>🚸</span> Familles & Jeunesse
+              </div>
+              <p class="text-slate-600">Extension des crèches de Dunières et Montfaucon, accueil de loisirs 3-17 ans, portail famille avec tarifs équitables et transports scolaires sécurisés.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-sky-50/60 border border-sky-200 space-y-2">
+              <div class="font-bold text-sky-900 flex items-center gap-1.5">
+                <span>🏥</span> Santé & Séniors
+              </div>
+              <p class="text-slate-600">2 Maisons de Santé (MSP) à Dunières et Montfaucon, accueil de nouveaux médecins, portage de repas à domicile et espace France Services de proximité.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-indigo-50/60 border border-indigo-200 space-y-2">
+              <div class="font-bold text-indigo-900 flex items-center gap-1.5">
+                <span>🌲</span> Cadre de Vie & Nature
+              </div>
+              <p class="text-slate-600">Voie verte Via Fluvia reliée aux 8 villages, modernisation de la piscine intercommunale, réseau gratuit des médiathèques et préservation de la qualité de l'eau.</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFinancesPerspective(container) {
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="border-b pb-3 flex items-center justify-between">
+            <div>
+              <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+                <span>💶</span> Programmation Pluriannuelle des Investissements (PPI 2026-2033)
+              </h3>
+              <p class="text-xs text-slate-500">Trajectoire M57, règle d'or du désendettement et ratios de solvabilité en temps réel.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">Note de Solvabilité : AAA Territoriale</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <span class="text-slate-500">Épargne Brute Annuelle</span>
+              <div class="font-bold text-slate-900 text-base mt-0.5">1 821 208 €</div>
+              <div class="text-[10px] text-emerald-600 font-medium">Taux d'épargne : 24.1%</div>
+            </div>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <span class="text-slate-500">Dette Principale</span>
+              <div class="font-bold text-slate-900 text-base mt-0.5">0 € (Zéro dette)</div>
+              <div class="text-[10px] text-sky-600 font-medium">Capacité désendettement : 0 an</div>
+            </div>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <span class="text-slate-500">Subventions Moyennes</span>
+              <div class="font-bold text-slate-900 text-base mt-0.5">48.5%</div>
+              <div class="text-[10px] text-slate-500">DETR, DSIL, Région, F. Vert</div>
+            </div>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <span class="text-slate-500">Fonds de Concours Communes</span>
+              <div class="font-bold text-slate-900 text-base mt-0.5">300 000 €/an</div>
+              <div class="text-[10px] text-slate-500">Solidarité territoriale aux 8 maires</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderRhPerspective(container) {
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="border-b pb-3 flex items-center justify-between">
+            <div>
+              <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+                <span>🧑‍💼</span> Gestion Prévisionnelle des Emplois et des Compétences (GPEC)
+              </h3>
+              <p class="text-xs text-slate-500">Analyse de charge des 45 agents communautaires et soutenabilité humaine du mandat.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">8 Départs en Retraite (2026-2033)</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <span class="text-slate-500">Masse Salariale (Chap. 012)</span>
+              <div class="font-bold text-slate-900 text-base mt-0.5">2 061 500 €</div>
+              <div class="text-[10px] text-slate-500">20.6% des dépenses réelles</div>
+            </div>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <span class="text-slate-500">Pôle Technique & Eau</span>
+              <div class="font-bold text-slate-900 text-base mt-0.5">14 Agents</div>
+              <div class="text-[10px] text-red-600 font-medium">Forte tension / Retraites</div>
+            </div>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <span class="text-slate-500">Pôle Enfance - Jeunesse</span>
+              <div class="font-bold text-slate-900 text-base mt-0.5">21 Agents</div>
+              <div class="text-[10px] text-slate-500">Crèches, ALSH, RPE</div>
+            </div>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <span class="text-slate-500">Administration & DAF</span>
+              <div class="font-bold text-slate-900 text-base mt-0.5">10 Agents</div>
+              <div class="text-[10px] text-slate-500">Direction, finances, SIG, PVD</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function applyFilters() {
+      state.filters.search = document.getElementById('filter-search').value.toLowerCase().trim();
+      state.filters.domain = document.getElementById('filter-domain').value;
+      state.filters.priority = document.getElementById('filter-priority').value;
+      state.filters.status = document.getElementById('filter-status').value;
+      state.filters.commune = document.getElementById('filter-commune').value;
+
+      state.filtered = state.actions.filter(a => {
+        // Search
+        if (state.filters.search) {
+          const matchText = (a.title + ' ' + a.description + ' ' + a.domain + ' ' + a.communes).toLowerCase();
+          if (!matchText.includes(state.filters.search)) return false;
+        }
+        // Domain
+        if (state.filters.domain !== 'ALL' && a.domain !== state.filters.domain) return false;
+        // Priority
+        if (state.filters.priority !== 'ALL' && a.priority !== state.filters.priority) return false;
+        // Status
+        if (state.filters.status !== 'ALL' && a.status !== state.filters.status) return false;
+        // Commune
+        if (state.filters.commune !== 'ALL' && a.communes !== 'Toutes' && !a.communes.includes(state.filters.commune)) return false;
+
+        return true;
+      });
+
+      renderTimeline();
+      updateKPIs();
+      document.getElementById('action-count-display').textContent = `${state.filtered.length} actions filtrées (sur ${state.actions.length})`;
+    }
+
+    function renderTimeline() {
+      const container = document.getElementById('timeline-rows-container');
+      container.innerHTML = '';
+
+      if (state.filtered.length === 0) {
+        container.innerHTML = `
+          <div class="py-12 text-center text-slate-400 text-xs">
+            Aucune action ne correspond à ces critères de recherche.
+          </div>
+        `;
+        return;
+      }
+
+      state.filtered.forEach(action => {
+        const row = document.createElement('div');
+        row.className = 'grid grid-cols-12 items-center py-2 px-4 hover:bg-slate-100/80 transition text-xs group';
+
+        // Badge class
+        let pBadge = 'badge-p2';
+        if (action.priority.includes('P0')) pBadge = 'badge-p0';
+        else if (action.priority.includes('P1')) pBadge = 'badge-p1';
+        else if (action.priority.includes('P3')) pBadge = 'badge-p3';
+        else if (action.priority.includes('P4')) pBadge = 'badge-p4';
+
+        // Net cost
+        const netCost = Math.round(action.cost_inv * (1 - (action.subvention_pct / 100)));
+
+        // Col 1: Action title & details
+        row.innerHTML = `
+          <div class="col-span-4 pr-4 py-1 space-y-1.5 border-r border-slate-200/60">
+            <div class="flex items-start gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${pBadge} shrink-0 mt-0.5">${action.priority.split(' - ')[0]}</span>
+              <span class="font-bold text-slate-900 leading-snug line-clamp-2" title="${action.title}">${action.title}</span>
+            </div>
+            <div class="text-[11px] text-slate-500 flex items-center gap-2 flex-wrap pl-0.5">
+              <span class="inline-flex items-center gap-1 font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded">
+                <span>📍</span> ${action.communes}
+              </span>
+              <span>•</span>
+              <span class="font-semibold text-slate-800">Inv: ${(action.cost_inv / 1000).toFixed(0)} k€</span>
+              <span class="text-slate-400">(Net: ${(netCost / 1000).toFixed(0)} k€)</span>
+              <span>•</span>
+              <span class="text-emerald-700 font-medium bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/60">${action.subvention_pct}% sub.</span>
+            </div>
+            <div class="flex items-center gap-1.5 pt-1">
+              <button onclick="shiftYear('${action.id}', -1)" title="Avancer d'un an" class="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-medium transition flex items-center gap-1 border border-slate-200">
+                <span>◀</span> -1 an
+              </button>
+              <button onclick="shiftYear('${action.id}', 1)" title="Reculer d'un an" class="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-medium transition flex items-center gap-1 border border-slate-200">
+                +1 an <span>▶</span>
+              </button>
+              <button onclick="removeAction('${action.id}')" title="Retirer du mandat" class="px-2 py-1 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] font-medium transition flex items-center gap-1 border border-rose-200 ml-1">
+                <span>✕</span> Retirer
+              </button>
+            </div>
+          </div>
+        `;
+
+        // Col 2-9: Years 2026 to 2033
+        const startY = action.start_year || 2026;
+        const durYears = Math.max(1, Math.ceil((action.duration_months || 12) / 12));
+        const endY = Math.min(2033, startY + durYears - 1);
+
+        for (let y = 2026; y <= 2033; y++) {
+          const colDiv = document.createElement('div');
+          colDiv.className = 'col-span-1 px-1.5 flex items-center justify-center border-r border-slate-200/40 last:border-r-0 h-full';
+
+          if (y >= startY && y <= endY) {
+            let barColor = 'bg-sky-500 hover:bg-sky-600';
+            if (action.priority.includes('P0')) barColor = 'bg-red-500 hover:bg-red-600';
+            else if (action.priority.includes('P1')) barColor = 'bg-amber-500 hover:bg-amber-600';
+            else if (action.priority.includes('P3')) barColor = 'bg-emerald-500 hover:bg-emerald-600';
+            else if (action.priority.includes('P4')) barColor = 'bg-purple-500 hover:bg-purple-600';
+
+            colDiv.innerHTML = `
+              <div class="w-full ${barColor} text-white text-[10px] py-2 px-1 rounded-lg text-center font-bold shadow-sm transition truncate cursor-pointer" title="${action.title} - Année ${y} : ${(action.cost_inv / durYears / 1000).toFixed(0)} k€">
+                ${(action.cost_inv / durYears / 1000).toFixed(0)} k€
+              </div>
+            `;
+          } else {
+            colDiv.innerHTML = `<span class="text-slate-300 text-[10px]">&bull;</span>`;
+          }
+          row.appendChild(colDiv);
+        }
+
+        container.appendChild(row);
+      });
+    }
+
+    function shiftYear(actionId, delta) {
+      const act = state.actions.find(a => a.id === actionId);
+      if (act) {
+        const newY = act.start_year + delta;
+        if (newY >= 2026 && newY <= 2033) {
+          act.start_year = newY;
+          applyFilters();
+        }
+      }
+    }
+
+    function removeAction(actionId) {
+      if (confirm('Voulez-vous retirer cette action de la programmation prévisionnelle ?')) {
+        state.actions = state.actions.filter(a => a.id !== actionId);
+        applyFilters();
+      }
+    }
+
+    function updateKPIs() {
+      let totalInv = 0;
+      let totalSub = 0;
+      let totalOpex = 0;
+
+      const annualCosts = { 2026: 0, 2027: 0, 2028: 0, 2029: 0, 2030: 0, 2031: 0, 2032: 0, 2033: 0 };
+
+      state.actions.forEach(a => {
+        totalInv += a.cost_inv;
+        const subAmt = a.cost_inv * (a.subvention_pct / 100);
+        totalSub += subAmt;
+        totalOpex += a.cost_opex;
+
+        const durYears = Math.max(1, Math.ceil((a.duration_months || 12) / 12));
+        const costPerYear = a.cost_inv / durYears;
+
+        for (let y = a.start_year; y < Math.min(2034, a.start_year + durYears); y++) {
+          if (annualCosts[y] !== undefined) {
+            annualCosts[y] += costPerYear;
+          }
+        }
+      });
+
+      const netCharge = totalInv - totalSub;
+      const subPct = totalInv > 0 ? ((totalSub / totalInv) * 100).toFixed(1) : 0;
+
+      document.getElementById('kpi-total-inv').textContent = `${(totalInv / 1000000).toFixed(2)} M€`;
+      document.getElementById('kpi-subvention-detail').textContent = `Subventions attendues : ${(totalSub / 1000000).toFixed(2)} M€ (${subPct}%)`;
+      document.getElementById('kpi-net-charge').textContent = `${(netCharge / 1000000).toFixed(2)} M€`;
+      document.getElementById('kpi-net-annual').textContent = `Moyenne nette : ${(netCharge / 7 / 1000).toFixed(0)} k€ / an`;
+      document.getElementById('kpi-total-opex').textContent = `${(totalOpex / 1000).toFixed(0)} k€ / an`;
+
+      // Update annual costs in timeline footer
+      for (let y = 2026; y <= 2033; y++) {
+        const val = annualCosts[y] || 0;
+        const el = document.getElementById(`yr-cost-${y}`);
+        if (el) {
+          el.textContent = `${(val / 1000).toFixed(0)} k€`;
+          if (val > 4000000) {
+            el.className = 'col-span-1 text-center font-bold text-red-400';
+          } else {
+            el.className = 'col-span-1 text-center font-bold text-emerald-400';
+          }
+        }
+      }
+    }
+
+    function openAddModal() {
+      document.getElementById('modal-add-action').classList.remove('hidden');
+    }
+
+    function closeAddModal() {
+      document.getElementById('modal-add-action').classList.add('hidden');
+    }
+
+    function submitNewAction(e) {
+      e.preventDefault();
+      const newAct = {
+        id: `NEW-${Date.now().toString().slice(-4)}`,
+        title: document.getElementById('new-title').value.trim(),
+        domain: document.getElementById('new-domain').value,
+        communes: document.getElementById('new-commune').value,
+        priority: document.getElementById('new-priority').value,
+        status: document.getElementById('new-status').value,
+        cost_inv: parseFloat(document.getElementById('new-inv').value) || 0,
+        subvention_pct: parseFloat(document.getElementById('new-sub').value) || 0,
+        cost_opex: parseFloat(document.getElementById('new-opex').value) || 0,
+        start_year: parseInt(document.getElementById('new-year').value) || 2026,
+        duration_months: parseInt(document.getElementById('new-duration').value) || 12,
+        etp_impact: document.getElementById('new-etp').value,
+        description: document.getElementById('new-desc').value.trim()
+      };
+
+      state.actions.unshift(newAct);
+      closeAddModal();
+      document.getElementById('form-new-action').reset();
+      applyFilters();
+      alert(`L'action "${newAct.title}" a été ajoutée avec succès au plan de mandat.`);
+    }
+
+    function exportScenario() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.actions, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `plan_de_mandat_2026_2033_scenario_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de Mandat 2026-2033 | Haut Pays du Velay - V2 Éco-Circulaire & Territoire Positif</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="data_actions.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3, .font-heading { font-family: 'Space Grotesk', sans-serif; }
+    .badge-p0 { background: #fee2e2; color: #991b1b; }
+    .badge-p1 { background: #fef3c7; color: #92400e; }
+    .badge-p2 { background: #d1fae5; color: #065f46; }
+    .badge-p3 { background: #cffafe; color: #155e75; }
+    .badge-p4 { background: #f3e8ff; color: #6b21a8; }
+    .custom-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #a7f3d0; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-emerald-950 via-teal-900 to-stone-900 text-white shadow-xl sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center font-bold text-emerald-300 text-xl shadow-inner">
+          🌿
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold tracking-tight">Haut Pays du Velay Éco-Circulaire</h1>
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-400 text-emerald-950">V2 - Température Haute A</span>
+          </div>
+          <p class="text-xs text-emerald-200/80">Projet de Mandat 2026-2033 : Territoire à Énergie Positive, Forêt Vivante & Souveraineté Locale</p>
+        </div>
+      </div>
+
+      <!-- Live Ecological & Financial Counters -->
+      <div class="hidden lg:flex items-center gap-3 text-xs">
+        <div class="bg-emerald-900/60 border border-emerald-700/60 px-3 py-1.5 rounded-xl text-center">
+          <div class="text-[10px] text-emerald-300">AUTONOMIE ÉNERGÉTIQUE</div>
+          <div class="font-bold text-white text-sm">Objectif 85% (2033)</div>
+        </div>
+        <div class="bg-emerald-900/60 border border-emerald-700/60 px-3 py-1.5 rounded-xl text-center">
+          <div class="text-[10px] text-emerald-300">FILIÈRE BOIS LOCALE</div>
+          <div class="font-bold text-amber-300 text-sm">100% Circuit Court</div>
+        </div>
+        <div class="bg-emerald-900/60 border border-emerald-700/60 px-3 py-1.5 rounded-xl text-center">
+          <div class="text-[10px] text-emerald-300">CAF BRUTE MOBILISÉE</div>
+          <div class="font-bold text-emerald-200 text-sm">1.82 M€/an</div>
+        </div>
+      </div>
+
+      <!-- Switcher -->
+      <div class="flex items-center gap-2 text-xs">
+        <a href="index.html" class="px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700">Portail</a>
+        <a href="app_v1.html" class="px-2.5 py-1.5 rounded-lg bg-sky-950/80 hover:bg-sky-900 text-sky-200 border border-sky-700">V1 Rigueur</a>
+        <a href="app_v3.html" class="px-2.5 py-1.5 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 text-indigo-200 border border-indigo-700">V3 Campus</a>
+      </div>
+    </div>
+
+    <!-- Perspective bar -->
+    <div class="bg-emerald-900/80 border-t border-emerald-800 px-4 py-2">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2">
+          <span class="text-emerald-200 font-medium">Prisme :</span>
+          <div class="flex bg-emerald-950 p-1 rounded-xl border border-emerald-800 gap-1">
+            <button onclick="setPersp('elus')" id="btn-p-elus" class="px-3 py-1 rounded-lg font-bold bg-emerald-600 text-white shadow">
+              🌱 Élus Transition
+            </button>
+            <button onclick="setPersp('habitants')" id="btn-p-habitants" class="px-3 py-1 rounded-lg font-medium text-emerald-200 hover:text-white">
+              🏡 Citoyens Éco-Acteurs
+            </button>
+            <button onclick="setPersp('finances')" id="btn-p-finances" class="px-3 py-1 rounded-lg font-medium text-emerald-200 hover:text-white">
+              ♻️ Finances & ROI Vert
+            </button>
+            <button onclick="setPersp('rh')" id="btn-p-rh" class="px-3 py-1 rounded-lg font-medium text-emerald-200 hover:text-white">
+              🛠️ Métiers de la Transition
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="openAddModal()" class="px-3 py-1.5 rounded-xl bg-teal-500 hover:bg-teal-400 font-bold text-teal-950 shadow transition flex items-center gap-1.5">
+            <span>✨</span> Proposer une éco-action
+          </button>
+          <button onclick="exportScenario()" class="px-3 py-1.5 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-medium">
+            📥 Exporter
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <div id="persp-banner" class="bg-emerald-100 border-b border-emerald-200 px-4 py-2.5 text-xs text-emerald-900">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <p id="persp-desc">
+        <strong>Vision Éco-Circulaire :</strong> Ce scénario à haute température place la transition écologique, la filière bois et l'autonomie énergétique au cœur du développement économique pour créer des emplois non délocalisables sur le Haut Pays.
+      </p>
+      <span class="font-bold text-emerald-800 ml-4 hidden sm:inline" id="act-count">Calcul en cours...</span>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full space-y-6">
+
+    <!-- Innovative Eco-Highlights Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-white p-5 rounded-2xl border border-emerald-200 shadow-sm space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Innovation Majeure 1</span>
+          <span class="text-lg">🪵</span>
+        </div>
+        <h3 class="font-bold text-stone-900 text-base">Régie Bois-Énergie & Chaufferies Villageoises</h3>
+        <p class="text-xs text-stone-600">Alimentation des bâtiments publics des 8 communes par les résidus de coupes forestières locales certifiées PEFC. Économie annuelle estimée : 120 000 €/an sur la facture de fioul/gaz.</p>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-emerald-200 shadow-sm space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-teal-700 uppercase tracking-wider">Innovation Majeure 2</span>
+          <span class="text-lg">☀️</span>
+        </div>
+        <h3 class="font-bold text-stone-900 text-base">Centrale Villageoise Solaire Citoyenne</h3>
+        <p class="text-xs text-stone-600">Couverture en panneaux photovoltaïques des toits d'ateliers relais et friches industrielles (Dunières/Riotord). Autoconsommation collective pour les artisans et PME du territoire.</p>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-emerald-200 shadow-sm space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-amber-700 uppercase tracking-wider">Innovation Majeure 3</span>
+          <span class="text-lg">🥗</span>
+        </div>
+        <h3 class="font-bold text-stone-900 text-base">Sécurité Sociale de l'Alimentation Locale</h3>
+        <p class="text-xs text-stone-600">Convention tripartite entre éleveurs, producteurs de fruits rouges et cantines scolaires pour garantir un revenu juste aux agriculteurs et 100% de produits locaux sains aux enfants.</p>
+      </div>
+    </section>
+
+    <!-- Interactive Timeline Section -->
+    <section class="bg-white rounded-2xl border border-emerald-200 shadow-sm p-5 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-base font-bold text-stone-900 flex items-center gap-2">
+            <span>📅</span> Frise Chronologique Éco-Circulaire (2026 – 2033)
+          </h2>
+          <p class="text-xs text-stone-500">Planifiez et ajustez le séquençage pluriannuel des investissements durables.</p>
+        </div>
+        <div class="flex gap-2">
+          <input type="text" id="v2-search" oninput="filterV2()" placeholder="Rechercher une action..." class="px-3 py-1.5 rounded-xl border border-stone-300 text-xs focus:ring-2 focus:ring-emerald-500">
+          <select id="v2-domain" onchange="filterV2()" class="px-3 py-1.5 rounded-xl border border-stone-300 text-xs bg-white">
+            <option value="ALL">Tous les pôles</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Gantt Matrix -->
+      <div class="overflow-x-auto custom-scroll border border-emerald-100 rounded-xl bg-stone-50/50">
+        <div class="min-w-[1100px] grid grid-cols-12 bg-emerald-50 border-b border-emerald-200 font-bold text-xs text-emerald-950 py-2.5 px-4 text-center">
+          <div class="col-span-4 text-left">Action Éco-Circulaire & Territoire</div>
+          <div class="col-span-1">2026</div>
+          <div class="col-span-1">2027</div>
+          <div class="col-span-1">2028</div>
+          <div class="col-span-1">2029</div>
+          <div class="col-span-1">2030</div>
+          <div class="col-span-1">2031</div>
+          <div class="col-span-1">2032</div>
+          <div class="col-span-1">2033</div>
+        </div>
+
+        <div id="v2-timeline-container" class="min-w-[1100px] divide-y divide-stone-200 max-h-[600px] overflow-y-auto">
+          <!-- rows injected by js -->
+        </div>
+
+        <div class="min-w-[1100px] grid grid-cols-12 bg-emerald-950 text-white font-semibold text-xs py-3 px-4 border-t-2 border-emerald-400 items-center">
+          <div class="col-span-4 text-emerald-300 font-bold">BUDGET VERT ANNUEL ESTIMÉ</div>
+          <div class="col-span-1 text-center" id="v2-cost-2026">0 €</div>
+          <div class="col-span-1 text-center" id="v2-cost-2027">0 €</div>
+          <div class="col-span-1 text-center" id="v2-cost-2028">0 €</div>
+          <div class="col-span-1 text-center" id="v2-cost-2029">0 €</div>
+          <div class="col-span-1 text-center" id="v2-cost-2030">0 €</div>
+          <div class="col-span-1 text-center" id="v2-cost-2031">0 €</div>
+          <div class="col-span-1 text-center" id="v2-cost-2032">0 €</div>
+          <div class="col-span-1 text-center" id="v2-cost-2033">0 €</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic Perspective Area -->
+    <section id="v2-persp-container" class="bg-white rounded-2xl border border-emerald-200 p-5 shadow-sm space-y-3">
+      <!-- injected by js -->
+    </section>
+
+  </main>
+
+  <footer class="bg-stone-900 text-stone-400 text-xs py-4 px-6 text-center border-t border-stone-800">
+    Haut Pays du Velay Communauté &bull; Version 2 : Haute Température - Transition Éco-Circulaire & Climat 2026-2033
+  </footer>
+
+  <script>
+    let v2Actions = [];
+    let currentPersp = 'elus';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Clone base actions and enrich with high-temp eco actions
+      v2Actions = JSON.parse(JSON.stringify(ACTIONS_DATA));
+
+      // Inject 5 breakthrough eco-actions
+      v2Actions.unshift(
+        {
+          id: "ECO-RUPTURE-01",
+          domain: "Transition Écologique & Eau",
+          title: "Régie Intercommunale Forestière & Réseau Chaleur Bois-Énergie",
+          description: "Création d'une filière intégrée de plaquettes forestières locales pour alimenter les chaufferies de toutes les écoles et mairies.",
+          status: "Potentielle (Nouvelle)",
+          priority: "P1 - Indispensable",
+          cost_inv: 1450000,
+          cost_opex: -65000,
+          subvention_pct: 70,
+          etp_impact: "Moyen (0.2-0.5 ETP)",
+          start_year: 2026,
+          duration_months: 24,
+          communes: "Toutes"
+        },
+        {
+          id: "ECO-RUPTURE-02",
+          domain: "Économie & Entreprises",
+          title: "Centrale Photovoltaïque Citoyenne des Friches Industrielles",
+          description: "Grappe solaire citoyenne de 2,5 MWc sur les toitures des anciennes usines textiles de Dunières et Riotord.",
+          status: "Potentielle (Nouvelle)",
+          priority: "P2 - Nécessaire",
+          cost_inv: 2100000,
+          cost_opex: -120000,
+          subvention_pct: 65,
+          etp_impact: "Faible (<0.2 ETP)",
+          start_year: 2027,
+          duration_months: 18,
+          communes: "Dunières, Riotord"
+        },
+        {
+          id: "ECO-RUPTURE-03",
+          domain: "Mobilités & Voirie",
+          title: "Navettes Électriques Solaires Rurales & Prolongement Vélorail",
+          description: "Flotte de minibus légers autonomes sur voie réservée pour relier les 8 clochers les jours de marché et d'école.",
+          status: "Potentielle (Nouvelle)",
+          priority: "P3 - Importante",
+          cost_inv: 680000,
+          cost_opex: 18000,
+          subvention_pct: 75,
+          etp_impact: "Moyen (0.2-0.5 ETP)",
+          start_year: 2028,
+          duration_months: 20,
+          communes: "Toutes"
+        }
+      );
+
+      // Populate domain dropdown
+      const domSelect = document.getElementById('v2-domain');
+      TERRITORY_CONFIG.poles.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = p;
+        domSelect.appendChild(opt);
+      });
+
+      filterV2();
+      setPersp('elus');
+    });
+
+    function setPersp(p) {
+      currentPersp = p;
+      ['elus', 'habitants', 'finances', 'rh'].forEach(x => {
+        const b = document.getElementById(`btn-p-${x}`);
+        if (x === p) b.className = 'px-3 py-1 rounded-lg font-bold bg-emerald-600 text-white shadow';
+        else b.className = 'px-3 py-1 rounded-lg font-medium text-emerald-200 hover:text-white';
+      });
+
+      const container = document.getElementById('v2-persp-container');
+      if (p === 'elus') {
+        container.innerHTML = `
+          <h3 class="font-bold text-sm text-stone-900 flex items-center gap-2"><span>🌱</span> Arbitrage Politique de la Transition Écologique</h3>
+          <p class="text-xs text-stone-600">Priorisation des projets garantissant la résilience face aux sécheresses, la souveraineté alimentaire et la protection des forêts de moyenne montagne.</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs pt-2">
+            <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200"><strong>Sécurisation de l'Eau :</strong> 100% des captages protégés d'ici 2029.</div>
+            <div class="p-3 rounded-xl bg-teal-50 border border-teal-200"><strong>Déchets Zéro Gaspillage :</strong> -25% de volume résiduel grâce au compostage et tarification incitative.</div>
+            <div class="p-3 rounded-xl bg-amber-50 border border-amber-200"><strong>Revenu Agricole Garanti :</strong> Marchés publics prioritaires aux 110 exploitations du territoire.</div>
+          </div>
+        `;
+      } else if (p === 'habitants') {
+        container.innerHTML = `
+          <h3 class="font-bold text-sm text-stone-900 flex items-center gap-2"><span>🏡</span> Le Pacte Citoyen pour un Haut Pays Vivable et Vert</h3>
+          <p class="text-xs text-stone-600">Amélioration concrète du pouvoir d'achat par la réduction des factures d'énergie (OPAH solaire, isolation) et transports doux.</p>
+        `;
+      } else if (p === 'finances') {
+        container.innerHTML = `
+          <h3 class="font-bold text-sm text-stone-900 flex items-center gap-2"><span>♻️</span> Modèle Économique : Le Retour sur Investissement Écologique</h3>
+          <p class="text-xs text-stone-600">Chaque euro investi dans la biomasse et le photovoltaïque génère des économies de fonctionnement pérennes (OPEX négatif), amortissant le projet en moins de 6 ans.</p>
+        `;
+      } else {
+        container.innerHTML = `
+          <h3 class="font-bold text-sm text-stone-900 flex items-center gap-2"><span>🛠️</span> Les Compétences Vertes de Demain pour nos 45 Agents</h3>
+          <p class="text-xs text-stone-600">Plan de formation aux écogestes, conduite d'engins électriques, régie de bois et gestion moderne des réseaux d'eau numériques.</p>
+        `;
+      }
+    }
+
+    function filterV2() {
+      const q = document.getElementById('v2-search').value.toLowerCase().trim();
+      const dom = document.getElementById('v2-domain').value;
+
+      const filtered = v2Actions.filter(a => {
+        if (q && !(a.title + ' ' + a.description).toLowerCase().includes(q)) return false;
+        if (dom !== 'ALL' && a.domain !== dom) return false;
+        return true;
+      });
+
+      renderV2Timeline(filtered);
+      document.getElementById('act-count').textContent = `${filtered.length} actions actives`;
+    }
+
+    function renderV2Timeline(acts) {
+      const container = document.getElementById('v2-timeline-container');
+      container.innerHTML = '';
+
+      const annual = { 2026: 0, 2027: 0, 2028: 0, 2029: 0, 2030: 0, 2031: 0, 2032: 0, 2033: 0 };
+
+      acts.forEach(a => {
+        const row = document.createElement('div');
+        row.className = 'grid grid-cols-12 items-center py-2 px-4 hover:bg-emerald-50/50 transition text-xs';
+
+        const dur = Math.max(1, Math.ceil((a.duration_months || 12) / 12));
+        const costYr = a.cost_inv / dur;
+        for (let y = a.start_year; y < Math.min(2034, a.start_year + dur); y++) {
+          if (annual[y] !== undefined) annual[y] += costYr;
+        }
+
+        row.innerHTML = `
+          <div class="col-span-4 pr-3">
+            <div class="font-bold text-stone-900 truncate" title="${a.title}">${a.title}</div>
+            <div class="text-[11px] text-stone-500">📍 ${a.communes} &bull; ${(a.cost_inv/1000).toFixed(0)} k€ &bull; ${a.subvention_pct}% sub.</div>
+          </div>
+        `;
+
+        for (let y = 2026; y <= 2033; y++) {
+          const col = document.createElement('div');
+          col.className = 'col-span-1 px-1 flex items-center justify-center';
+          if (y >= a.start_year && y < a.start_year + dur) {
+            col.innerHTML = `
+              <div class="w-full bg-emerald-600 text-white text-[10px] py-1 px-1 rounded text-center font-bold truncate">
+                ${(costYr / 1000).toFixed(0)}k€
+              </div>
+            `;
+          } else {
+            col.innerHTML = `<span class="text-stone-300 text-[10px]">&bull;</span>`;
+          }
+          row.appendChild(col);
+        }
+        container.appendChild(row);
+      });
+
+      for (let y = 2026; y <= 2033; y++) {
+        const el = document.getElementById(`v2-cost-${y}`);
+        if (el) el.textContent = `${(annual[y] / 1000).toFixed(0)} k€`;
+      }
+    }
+
+    function exportScenario() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(v2Actions, null, 2));
+      const a = document.createElement('a');
+      a.href = dataStr;
+      a.download = `scenario_v2_eco_circulaire_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+    }
+  </script>
+</body>
+</html>

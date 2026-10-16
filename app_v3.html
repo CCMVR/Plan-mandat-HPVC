@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de Mandat 2026-2033 | Haut Pays du Velay - V3 Campus Rural & Attractivité</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="data_actions.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3, .font-heading { font-family: 'Outfit', sans-serif; }
+    .custom-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-slate-950/90 backdrop-blur-md border-b border-indigo-900/60 sticky top-0 z-40 shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 border border-indigo-400/50 flex items-center justify-center font-bold text-indigo-300 text-xl shadow-inner">
+          🚀
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold tracking-tight text-white">Haut Pays Campus Rural 2033</h1>
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-500 text-white">V3 - Température Haute B</span>
+          </div>
+          <p class="text-xs text-indigo-300">Territoire d'Attractivité Nouvelle Génération, Tiers-Lieux & Démocratie Ouverte</p>
+        </div>
+      </div>
+
+      <div class="hidden lg:flex items-center gap-3 text-xs">
+        <div class="bg-indigo-950/80 border border-indigo-800/60 px-3 py-1.5 rounded-xl text-center">
+          <div class="text-[10px] text-indigo-400">BUDGET PARTICIPATIF</div>
+          <div class="font-bold text-amber-300 text-sm">150 000 € / an</div>
+        </div>
+        <div class="bg-indigo-950/80 border border-indigo-800/60 px-3 py-1.5 rounded-xl text-center">
+          <div class="text-[10px] text-indigo-400">NOMADES DIGITAUX</div>
+          <div class="font-bold text-sky-300 text-sm">Objectif +350 actifs</div>
+        </div>
+        <div class="bg-indigo-950/80 border border-indigo-800/60 px-3 py-1.5 rounded-xl text-center">
+          <div class="text-[10px] text-indigo-400">CAF MOBILISABLE</div>
+          <div class="font-bold text-emerald-300 text-sm">1.82 M€ / an</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs">
+        <a href="index.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">Portail</a>
+        <a href="app_v1.html" class="px-2.5 py-1.5 rounded-lg bg-sky-950/80 hover:bg-sky-900 text-sky-200 border border-sky-700">V1 Rigueur</a>
+        <a href="app_v2.html" class="px-2.5 py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-emerald-200 border border-emerald-700">V2 Éco-Circulaire</a>
+      </div>
+    </div>
+
+    <!-- Perspective bar -->
+    <div class="bg-slate-900 border-t border-slate-800 px-4 py-2">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2">
+          <span class="text-indigo-300 font-medium">Prisme :</span>
+          <div class="flex bg-slate-950 p-1 rounded-xl border border-indigo-950 gap-1">
+            <button onclick="setPersp('elus')" id="btn-p-elus" class="px-3 py-1 rounded-lg font-bold bg-indigo-600 text-white shadow">
+              🎯 Élus Innovateurs
+            </button>
+            <button onclick="setPersp('habitants')" id="btn-p-habitants" class="px-3 py-1 rounded-lg font-medium text-slate-300 hover:text-white">
+              📱 Habitants Connectés
+            </button>
+            <button onclick="setPersp('finances')" id="btn-p-finances" class="px-3 py-1 rounded-lg font-medium text-slate-300 hover:text-white">
+              💎 Financement Participatif
+            </button>
+            <button onclick="setPersp('rh')" id="btn-p-rh" class="px-3 py-1 rounded-lg font-medium text-slate-300 hover:text-white">
+              🚀 RH Agiles & FabLab
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="exportScenario()" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-medium text-white">
+            📥 Exporter Scénario V3
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full space-y-6">
+
+    <!-- Breakthrough Highlights V3 -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-slate-800/80 border border-indigo-800/40 p-5 rounded-2xl shadow-lg space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Concept Clé 1</span>
+          <span class="text-lg">🏔️</span>
+        </div>
+        <h3 class="font-bold text-white text-base">Campus Rural d'Altitude & Tiers-Lieux</h3>
+        <p class="text-xs text-slate-300">Transformation d'anciennes bâtisses en espaces de co-living et co-working haute vitesse (Fibre 10 Gbps) pour séjours d'entreprises innovantes et créatifs internationaux.</p>
+      </div>
+
+      <div class="bg-slate-800/80 border border-indigo-800/40 p-5 rounded-2xl shadow-lg space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Concept Clé 2</span>
+          <span class="text-lg">🗳️</span>
+        </div>
+        <h3 class="font-bold text-white text-base">Budget Participatif Citoyen Digital</h3>
+        <p class="text-xs text-slate-300">Enveloppe de 150 000 €/an soumise au vote direct des résidents dès 15 ans via une application mobile citoyenne dédiée pour financer des micro-projets de quartier.</p>
+      </div>
+
+      <div class="bg-slate-800/80 border border-indigo-800/40 p-5 rounded-2xl shadow-lg space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Concept Clé 3</span>
+          <span class="text-lg">🍳</span>
+        </div>
+        <h3 class="font-bold text-white text-base">Incubateur Agri-Tech & FoodLab du Velay</h3>
+        <p class="text-xs text-slate-300">Laboratoire d'innovation agroalimentaire mutualisé à Saint-Bonnet-le-Froid et Dunières pour incuber les jeunes chefs et transformateurs de produits du terroir.</p>
+      </div>
+    </section>
+
+    <!-- Timeline 2026-2033 -->
+    <section class="bg-slate-800/60 border border-indigo-900/50 rounded-2xl p-5 shadow-xl space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <span>📅</span> Frise Chronologique Campus Rural (2026 – 2033)
+          </h2>
+          <p class="text-xs text-slate-400">Modulation pluriannuelle des projets d'attractivité et d'innovation.</p>
+        </div>
+        <input type="text" id="v3-search" oninput="filterV3()" placeholder="Filtrer une action..." class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:ring-2 focus:ring-indigo-500">
+      </div>
+
+      <div class="overflow-x-auto custom-scroll border border-slate-700 rounded-xl bg-slate-950/60">
+        <div class="min-w-[1100px] grid grid-cols-12 bg-slate-900 border-b border-slate-700 font-bold text-xs text-indigo-200 py-2.5 px-4 text-center">
+          <div class="col-span-4 text-left">Action & Territoire</div>
+          <div class="col-span-1">2026</div>
+          <div class="col-span-1">2027</div>
+          <div class="col-span-1">2028</div>
+          <div class="col-span-1">2029</div>
+          <div class="col-span-1">2030</div>
+          <div class="col-span-1">2031</div>
+          <div class="col-span-1">2032</div>
+          <div class="col-span-1">2033</div>
+        </div>
+
+        <div id="v3-timeline-container" class="min-w-[1100px] divide-y divide-slate-800 max-h-[600px] overflow-y-auto">
+          <!-- rows injected by js -->
+        </div>
+
+        <div class="min-w-[1100px] grid grid-cols-12 bg-indigo-950 text-white font-semibold text-xs py-3 px-4 border-t-2 border-indigo-500 items-center">
+          <div class="col-span-4 text-indigo-300 font-bold">ENGAGEMENT PLURIANNUEL PRÉVU</div>
+          <div class="col-span-1 text-center font-bold" id="v3-cost-2026">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="v3-cost-2027">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="v3-cost-2028">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="v3-cost-2029">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="v3-cost-2030">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="v3-cost-2031">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="v3-cost-2032">0 €</div>
+          <div class="col-span-1 text-center font-bold" id="v3-cost-2033">0 €</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Perspective container -->
+    <section id="v3-persp-container" class="bg-slate-800/60 border border-indigo-900/50 rounded-2xl p-5 shadow-xl space-y-3">
+      <!-- injected by js -->
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-950 text-slate-500 text-xs py-4 px-6 text-center border-t border-slate-900">
+    Haut Pays du Velay Communauté &bull; Version 3 : Haute Température - Campus Rural, Attractivité & Démocratie Participative
+  </footer>
+
+  <script>
+    let v3Actions = [];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      v3Actions = JSON.parse(JSON.stringify(ACTIONS_DATA));
+
+      // Inject high-temp breakthrough actions
+      v3Actions.unshift(
+        {
+          id: "CAMPUS-RUPTURE-01",
+          domain: "Économie & Entreprises",
+          title: "Campus Rural d'Altitude & Coliving Nomade International",
+          description: "Aménagement d'un tiers-lieu d'excellence de 1200 m² dédié au télétravail vert et aux résidences d'équipes tech.",
+          status: "Potentielle (Nouvelle)",
+          priority: "P3 - Importante",
+          cost_inv: 1850000,
+          cost_opex: -45000,
+          subvention_pct: 65,
+          etp_impact: "Moyen (0.2-0.5 ETP)",
+          start_year: 2027,
+          duration_months: 20,
+          communes: "Saint-Bonnet-le-Froid, Montfaucon"
+        },
+        {
+          id: "CAMPUS-RUPTURE-02",
+          domain: "Gouvernance & Finances",
+          title: "Budget Participatif Citoyen Digitalisé (150 k€/an)",
+          description: "Vote direct des habitants sur application mobile pour co-décider des aménagements de convivialité des 8 communes.",
+          status: "Potentielle (Nouvelle)",
+          priority: "P2 - Nécessaire",
+          cost_inv: 150000,
+          cost_opex: 150000,
+          subvention_pct: 0,
+          etp_impact: "Faible (<0.2 ETP)",
+          start_year: 2026,
+          duration_months: 84,
+          communes: "Toutes"
+        },
+        {
+          id: "CAMPUS-RUPTURE-03",
+          domain: "Culture, Sport & Tourisme",
+          title: "Biennale Internationale d'Art Contemporain sur la Via Fluvia",
+          description: "Parcours de 40 km d'œuvres d'art monumentales éphémères et concerts décentralisés dans les 8 clochers.",
+          status: "Potentielle (Nouvelle)",
+          priority: "P4 - Optionnelle / Innovation",
+          cost_inv: 120000,
+          cost_opex: 35000,
+          subvention_pct: 70,
+          etp_impact: "Faible (<0.2 ETP)",
+          start_year: 2028,
+          duration_months: 12,
+          communes: "Toutes"
+        }
+      );
+
+      filterV3();
+      setPersp('elus');
+    });
+
+    function setPersp(p) {
+      ['elus', 'habitants', 'finances', 'rh'].forEach(x => {
+        const b = document.getElementById(`btn-p-${x}`);
+        if (x === p) b.className = 'px-3 py-1 rounded-lg font-bold bg-indigo-600 text-white shadow';
+        else b.className = 'px-3 py-1 rounded-lg font-medium text-slate-300 hover:text-white';
+      });
+
+      const container = document.getElementById('v3-persp-container');
+      if (p === 'elus') {
+        container.innerHTML = `
+          <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>🎯</span> Arbitrage Politique de l'Attractivité Nouvelle Génération</h3>
+          <p class="text-xs text-slate-300">Attirer de nouveaux actifs qualifiés, lutter contre le vieillissement démographique et offrir des perspectives valorisantes à la jeunesse locale.</p>
+        `;
+      } else if (p === 'habitants') {
+        container.innerHTML = `
+          <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>📱</span> Le Pouvoir d'Agir Direct des Citoyens</h3>
+          <p class="text-xs text-slate-300">Proposez et votez pour les projets de votre quartier grâce au budget participatif de 150 000 €/an.</p>
+        `;
+      } else if (p === 'finances') {
+        container.innerHTML = `
+          <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>💎</span> Nouveaux Modèles de Financement & Mécénat</h3>
+          <p class="text-xs text-slate-300">Mobilisation de mécénat d'entreprises locales et de financements participatifs citoyens en complément des subventions d'État.</p>
+        `;
+      } else {
+        container.innerHTML = `
+          <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>🚀</span> Une Administration Communautaire Digitale & Agile</h3>
+          <p class="text-xs text-slate-300">Modernisation des outils de travail des 45 agents : télétravail sécurisé, dématérialisation totale et culture de projet transversale.</p>
+        `;
+      }
+    }
+
+    function filterV3() {
+      const q = document.getElementById('v3-search').value.toLowerCase().trim();
+      const filtered = v3Actions.filter(a => {
+        if (q && !(a.title + ' ' + a.description).toLowerCase().includes(q)) return false;
+        return true;
+      });
+      renderV3Timeline(filtered);
+    }
+
+    function renderV3Timeline(acts) {
+      const container = document.getElementById('v3-timeline-container');
+      container.innerHTML = '';
+
+      const annual = { 2026: 0, 2027: 0, 2028: 0, 2029: 0, 2030: 0, 2031: 0, 2032: 0, 2033: 0 };
+
+      acts.forEach(a => {
+        const row = document.createElement('div');
+        row.className = 'grid grid-cols-12 items-center py-2 px-4 hover:bg-slate-800/80 transition text-xs';
+
+        const dur = Math.max(1, Math.ceil((a.duration_months || 12) / 12));
+        const costYr = a.cost_inv / dur;
+        for (let y = a.start_year; y < Math.min(2034, a.start_year + dur); y++) {
+          if (annual[y] !== undefined) annual[y] += costYr;
+        }
+
+        row.innerHTML = `
+          <div class="col-span-4 pr-3">
+            <div class="font-bold text-white truncate" title="${a.title}">${a.title}</div>
+            <div class="text-[11px] text-slate-400">📍 ${a.communes} &bull; ${(a.cost_inv/1000).toFixed(0)} k€ &bull; ${a.subvention_pct}% sub.</div>
+          </div>
+        `;
+
+        for (let y = 2026; y <= 2033; y++) {
+          const col = document.createElement('div');
+          col.className = 'col-span-1 px-1 flex items-center justify-center';
+          if (y >= a.start_year && y < a.start_year + dur) {
+            col.innerHTML = `
+              <div class="w-full bg-indigo-600 text-white text-[10px] py-1 px-1 rounded text-center font-bold truncate">
+                ${(costYr / 1000).toFixed(0)}k€
+              </div>
+            `;
+          } else {
+            col.innerHTML = `<span class="text-slate-600 text-[10px]">&bull;</span>`;
+          }
+          row.appendChild(col);
+        }
+        container.appendChild(row);
+      });
+
+      for (let y = 2026; y <= 2033; y++) {
+        const el = document.getElementById(`v3-cost-${y}`);
+        if (el) el.textContent = `${(annual[y] / 1000).toFixed(0)} k€`;
+      }
+    }
+
+    function exportScenario() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(v3Actions, null, 2));
+      const a = document.createElement('a');
+      a.href = dataStr;
+      a.download = `scenario_v3_campus_rural_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+    }
+  </script>
+</body>
+</html>
